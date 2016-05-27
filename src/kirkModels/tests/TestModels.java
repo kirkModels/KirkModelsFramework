@@ -1,64 +1,18 @@
 package kirkModels.tests;
 
-import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.PrintWriter;
-import java.lang.reflect.Array;
 import java.lang.reflect.InvocationTargetException;
-import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Date;
-import java.util.Scanner;
-
-import org.json.simple.JSONArray;
-import org.json.simple.JSONObject;
-import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
-import iansLibrary.data.databases.MetaDatabase;
-import iansLibrary.data.databases.MetaTable;
-import iansLibrary.data.databases.MetaTableColumn;
-import iansLibrary.utilities.JSONClassMapping;
-import iansLibrary.utilities.JSONFormat;
-import iansLibrary.utilities.ModdedDate;
-import iansLibrary.utilities.ObjectParser;
-import kirkModels.config.Settings;
-import kirkModels.fields.CharField;
-import kirkModels.fields.ForeignKey;
-import kirkModels.fields.IntegerField;
-import kirkModels.fields.ManyToManyField;
-import kirkModels.fields.SavableField;
 import kirkModels.orm.Project;
 import kirkModels.orm.backend.sync.DbSync;
-import kirkModels.orm.backend.sync.MigrationGenerator;
-import kirkModels.orm.backend.sync.migrationTracking.MigrationFile;
-import kirkModels.orm.backend.sync.migrationTracking.MigrationTracking;
-import kirkModels.orm.backend.sync.Migration;
-import kirkModels.orm.backend.sync.queries.AddColumn;
-import kirkModels.orm.backend.sync.queries.AddForeignKey;
-import kirkModels.orm.backend.sync.queries.AlterTable;
-import kirkModels.orm.backend.sync.queries.ColumnDefinitionChange;
-import kirkModels.orm.backend.sync.queries.CreateTable;
-import kirkModels.orm.backend.sync.queries.DropField;
-import kirkModels.orm.backend.sync.queries.Operation;
-import kirkModels.orm.backend.sync.queries.RenameField;
-import kirkModels.orm.backend.sync.queries.RenameTable;
-import kirkModels.orm.queries.DeleteQuery;
-import kirkModels.orm.queries.InsertQuery;
-import kirkModels.orm.queries.SelectQuery;
-import kirkModels.orm.queries.UpdateQuery;
-import kirkModels.orm.queries.scripts.InsertValue;
-import kirkModels.orm.queries.scripts.WhereCondition;
-import kirkModels.utils.exceptions.ObjectAlreadyExistsException;
 import kirkModels.utils.exceptions.ObjectNotFoundException;
 
 public abstract class TestModels {
 
 	@SuppressWarnings("unchecked")
-	public static void main(String[] args) throws ObjectNotFoundException, ClassNotFoundException, NoSuchMethodException, InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, FileNotFoundException, SQLException, ParseException {
+	public static void main(String[] args) throws FileNotFoundException, ParseException, SQLException, ClassNotFoundException, NoSuchMethodException, InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, ObjectNotFoundException {
 		// TODO Auto-generated method stub
 
 		Project.initialize("settings/settings.json");
