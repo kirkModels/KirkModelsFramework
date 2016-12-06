@@ -26,13 +26,15 @@
 	"defaultDb": "vagrant",
 	
 	"synced_models": [
-		"kirkModels.tests.Person",
-		"kirkModels.tests.Course"
+		"com.ianmann.database.tests.Person",
+		"com.ianmann.database.tests.Course"
 	],
 	
 	"migrations_folder": "dataBaseChanges/",
 	
-	"project_development_root_parent": "Users/kirkp1ia/projects/java/kirkModels/",
+	"project_development_root_parent": "/Users/kirkp1ia/projects/java/com.ianmann.database/",
 	
-	"binary_root_parent": "Users/kirkp1ia/projects/projects/java/kirkModels/"
+	"binary_root_parent": "/Users/kirkp1ia/projects/projects/java/com.ianmann.database/",
+	
+	"debug": 0
 }

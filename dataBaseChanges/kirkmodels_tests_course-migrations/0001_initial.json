@@ -1,20 +1,20 @@
 {
 	"1#java.lang.String#_dependsOn": "null-value",
 	"2#[LkirkModels.orm.queries.Query;#_operations": [
-		"kirkModels.orm.queries.Query",
+		"com.ianmann.database.orm.queries.Query",
 		{
 			"2#java.lang.String#_tableName": "kirkmodels_tests_course",
-			"type": "kirkModels.orm.backend.sync.queries.CreateTable",
+			"type": "com.ianmann.database.orm.backend.sync.queries.CreateTable",
 			"4#[LkirkModels.fields.ManyToManyField;#_m2mFields": [
-				"kirkModels.fields.ManyToManyField"
+				"com.ianmann.database.fields.ManyToManyField"
 			],
 			"3#[LkirkModels.fields.SavableField;#_fields": [
-				"kirkModels.fields.SavableField",
+				"com.ianmann.database.fields.SavableField",
 				{
 					"3#java.lang.String#_defaultValue": "null-value",
 					"5#java.lang.Integer#_maxLength": 100,
 					"1#java.lang.String#_label": "name",
-					"type": "kirkModels.fields.CharField",
+					"type": "com.ianmann.database.fields.CharField",
 					"2#java.lang.Boolean#_isNull": false,
 					"4#java.lang.Boolean#_unique": true
 				},
@@ -22,7 +22,7 @@
 					"3#java.lang.String#_defaultValue": "null-value",
 					"5#java.lang.Integer#_maxLength": 100,
 					"1#java.lang.String#_label": "designator",
-					"type": "kirkModels.fields.CharField",
+					"type": "com.ianmann.database.fields.CharField",
 					"2#java.lang.Boolean#_isNull": false,
 					"4#java.lang.Boolean#_unique": true
 				},
@@ -30,15 +30,15 @@
 					"3#java.lang.Integer#_defaultValue": -2147483648,
 					"5#java.lang.Integer#_maxVal": 100000,
 					"1#java.lang.String#_label": "id",
-					"type": "kirkModels.fields.IntegerField",
+					"type": "com.ianmann.database.fields.IntegerField",
 					"2#java.lang.Boolean#_isNull": false,
 					"4#java.lang.Boolean#_unique": true
 				}
 			]
 		}
 	],
-	"type": "kirkModels.orm.backend.sync.Migration",
+	"type": "com.ianmann.database.orm.backend.sync.Migration",
 	"3#[LkirkModels.orm.queries.Query;#_foreignKeyOperations": [
-		"kirkModels.orm.queries.Query"
+		"com.ianmann.database.orm.queries.Query"
 	]
 }

@@ -1,32 +1,32 @@
 {
 	"1#java.lang.String#_dependsOn": "null-value",
 	"2#[LkirkModels.orm.queries.Query;#_operations": [
-		"kirkModels.orm.queries.Query",
+		"com.ianmann.database.orm.queries.Query",
 		{
 			"2#java.lang.String#_tableName": "kirkmodels_tests_person",
-			"type": "kirkModels.orm.backend.sync.queries.CreateTable",
+			"type": "com.ianmann.database.orm.backend.sync.queries.CreateTable",
 			"4#[LkirkModels.fields.ManyToManyField;#_m2mFields": [
-				"kirkModels.fields.ManyToManyField",
+				"com.ianmann.database.fields.ManyToManyField",
 				{
 					"1#java.lang.String#_tableName": "mtm___classes___person___course",
-					"3#java.lang.Class#_refClass": "kirkModels.tests.Course",
-					"2#java.lang.Class#_hostClass": "kirkModels.tests.Person",
-					"type": "kirkModels.fields.ManyToManyField"
+					"3#java.lang.Class#_refClass": "com.ianmann.database.tests.Course",
+					"2#java.lang.Class#_hostClass": "com.ianmann.database.tests.Person",
+					"type": "com.ianmann.database.fields.ManyToManyField"
 				},
 				{
 					"1#java.lang.String#_tableName": "mtm___friends___person___person",
-					"3#java.lang.Class#_refClass": "kirkModels.tests.Person",
-					"2#java.lang.Class#_hostClass": "kirkModels.tests.Person",
-					"type": "kirkModels.fields.ManyToManyField"
+					"3#java.lang.Class#_refClass": "com.ianmann.database.tests.Person",
+					"2#java.lang.Class#_hostClass": "com.ianmann.database.tests.Person",
+					"type": "com.ianmann.database.fields.ManyToManyField"
 				}
 			],
 			"3#[LkirkModels.fields.SavableField;#_fields": [
-				"kirkModels.fields.SavableField",
+				"com.ianmann.database.fields.SavableField",
 				{
 					"3#java.lang.String#_defaultValue": "null-value",
 					"5#java.lang.Integer#_maxLength": 45,
 					"1#java.lang.String#_label": "name",
-					"type": "kirkModels.fields.CharField",
+					"type": "com.ianmann.database.fields.CharField",
 					"2#java.lang.Boolean#_isNull": false,
 					"4#java.lang.Boolean#_unique": false
 				},
@@ -34,25 +34,25 @@
 					"3#java.lang.Integer#_defaultValue": -2147483648,
 					"5#java.lang.Integer#_maxVal": 150,
 					"1#java.lang.String#_label": "age",
-					"type": "kirkModels.fields.IntegerField",
+					"type": "com.ianmann.database.fields.IntegerField",
 					"2#java.lang.Boolean#_isNull": false,
 					"4#java.lang.Boolean#_unique": false
 				},
 				{
-					"2#java.lang.Class#_referenceClass": "kirkModels.tests.Person",
+					"2#java.lang.Class#_referenceClass": "com.ianmann.database.tests.Person",
 					"4#java.lang.Integer#_defaultValue": -2147483648,
 					"5#java.lang.Boolean#_unique": false,
 					"1#java.lang.String#_label": "mother",
-					"type": "kirkModels.fields.ForeignKey",
+					"type": "com.ianmann.database.fields.ForeignKey",
 					"6#java.lang.String#_onDelete": "NO ACTION",
 					"3#java.lang.Boolean#_isNull": true
 				},
 				{
-					"2#java.lang.Class#_referenceClass": "kirkModels.tests.Person",
+					"2#java.lang.Class#_referenceClass": "com.ianmann.database.tests.Person",
 					"4#java.lang.Integer#_defaultValue": -2147483648,
 					"5#java.lang.Boolean#_unique": false,
 					"1#java.lang.String#_label": "father",
-					"type": "kirkModels.fields.ForeignKey",
+					"type": "com.ianmann.database.fields.ForeignKey",
 					"6#java.lang.String#_onDelete": "NO ACTION",
 					"3#java.lang.Boolean#_isNull": true
 				},
@@ -60,44 +60,44 @@
 					"3#java.lang.Integer#_defaultValue": -2147483648,
 					"5#java.lang.Integer#_maxVal": 100000,
 					"1#java.lang.String#_label": "id",
-					"type": "kirkModels.fields.IntegerField",
+					"type": "com.ianmann.database.fields.IntegerField",
 					"2#java.lang.Boolean#_isNull": false,
 					"4#java.lang.Boolean#_unique": true
 				}
 			]
 		}
 	],
-	"type": "kirkModels.orm.backend.sync.Migration",
+	"type": "com.ianmann.database.orm.backend.sync.Migration",
 	"3#[LkirkModels.orm.queries.Query;#_foreignKeyOperations": [
-		"kirkModels.orm.queries.Query",
+		"com.ianmann.database.orm.queries.Query",
 		{
 			"2#java.lang.String#_tableName": "kirkmodels_tests_person",
-			"type": "kirkModels.orm.backend.sync.queries.AlterTable",
+			"type": "com.ianmann.database.orm.backend.sync.queries.AlterTable",
 			"3#[LkirkModels.orm.backend.sync.queries.Operation;#_operations": [
-				"kirkModels.orm.backend.sync.queries.AddForeignKey",
+				"com.ianmann.database.orm.backend.sync.queries.AddForeignKey",
 				{
-					"1#kirkModels.fields.ForeignKey#_foreignKeyDef": {
-						"2#java.lang.Class#_referenceClass": "kirkModels.tests.Person",
+					"1#com.ianmann.database.fields.ForeignKey#_foreignKeyDef": {
+						"2#java.lang.Class#_referenceClass": "com.ianmann.database.tests.Person",
 						"4#java.lang.Integer#_defaultValue": -2147483648,
 						"5#java.lang.Boolean#_unique": false,
 						"1#java.lang.String#_label": "mother",
-						"type": "kirkModels.fields.ForeignKey",
+						"type": "com.ianmann.database.fields.ForeignKey",
 						"6#java.lang.String#_onDelete": "NO ACTION",
 						"3#java.lang.Boolean#_isNull": true
 					},
-					"type": "kirkModels.orm.backend.sync.queries.AddForeignKey"
+					"type": "com.ianmann.database.orm.backend.sync.queries.AddForeignKey"
 				},
 				{
-					"1#kirkModels.fields.ForeignKey#_foreignKeyDef": {
-						"2#java.lang.Class#_referenceClass": "kirkModels.tests.Person",
+					"1#com.ianmann.database.fields.ForeignKey#_foreignKeyDef": {
+						"2#java.lang.Class#_referenceClass": "com.ianmann.database.tests.Person",
 						"4#java.lang.Integer#_defaultValue": -2147483648,
 						"5#java.lang.Boolean#_unique": false,
 						"1#java.lang.String#_label": "father",
-						"type": "kirkModels.fields.ForeignKey",
+						"type": "com.ianmann.database.fields.ForeignKey",
 						"6#java.lang.String#_onDelete": "NO ACTION",
 						"3#java.lang.Boolean#_isNull": true
 					},
-					"type": "kirkModels.orm.backend.sync.queries.AddForeignKey"
+					"type": "com.ianmann.database.orm.backend.sync.queries.AddForeignKey"
 				}
 			]
 		}

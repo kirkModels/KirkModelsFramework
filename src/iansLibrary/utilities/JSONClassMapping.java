@@ -10,10 +10,10 @@ import java.util.Set;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
-import kirkModels.config.Settings;
-import kirkModels.fields.ManyToManyField;
-import kirkModels.orm.Model;
-import kirkModels.orm.queries.Query;
+import com.ianmann.database.config.Settings;
+import com.ianmann.database.fields.ManyToManyField;
+import com.ianmann.database.orm.Model;
+import com.ianmann.database.orm.queries.Query;
 
 public final class JSONClassMapping {
 		

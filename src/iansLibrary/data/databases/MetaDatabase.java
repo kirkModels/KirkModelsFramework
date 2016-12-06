@@ -15,12 +15,12 @@ import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
+import com.ianmann.database.config.Settings;
+import com.ianmann.database.fields.SavableField;
+import com.ianmann.database.utils.Utilities;
+
 import java.sql.Connection;
 import java.sql.DatabaseMetaData;
-
-import kirkModels.config.Settings;
-import kirkModels.fields.SavableField;
-import kirkModels.utils.Utilities;
 
 public class MetaDatabase {
 
@@ -73,11 +73,15 @@ public class MetaDatabase {
 	}
 	
 	public void connect() throws SQLException{
-		this.dbConnection = DriverManager.getConnection(this.getConnectionURL(), this.username, this.password);
+		String connectionURL = this.getConnectionURL();
+		this.dbConnection = DriverManager.getConnection(connectionURL, this.username, this.password);
 		this.metaData = this.dbConnection.getMetaData();
 	}
 	
 	public void run(String sql) throws SQLException{
+		if(Settings.DEBUG) {
+			System.out.println(sql);
+		}
 		Statement statement = this.dbConnection.createStatement();
 		statement.execute(sql);
 	}
