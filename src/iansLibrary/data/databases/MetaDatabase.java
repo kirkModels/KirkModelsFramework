@@ -34,6 +34,9 @@ public class MetaDatabase {
 	public String password;
 	public String language;
 	
+	public static final String MYSQL = "MySQL";
+	public static final String POSTRESQL = "postgreSQL";
+	
 	public Connection dbConnection;
 	public DatabaseMetaData metaData;
 	

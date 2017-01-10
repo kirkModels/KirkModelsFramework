@@ -39,7 +39,7 @@ public class MetaTable {
 	
 	public MetaTableColumn getSingleField(ResultSet _fieldResult) throws SQLException {
 		String columnName = _fieldResult.getString(MetaTableColumn.COLUMN_NAME);
-		String dataType = _fieldResult.getString(MetaTableColumn.DATA_TYPE_NAME);
+		int dataType = _fieldResult.getInt(MetaTableColumn.DATA_TYPE_NAME);
 		int nullable = _fieldResult.getInt(MetaTableColumn.NULLABLE);
 		String defaultValue = _fieldResult.getString(MetaTableColumn.COLUMN_DEF);
 		int columnSize = _fieldResult.getInt(MetaTableColumn.COLUMN_SIZE);

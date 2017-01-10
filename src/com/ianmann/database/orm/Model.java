@@ -119,6 +119,28 @@ public abstract class Model {
 	}
 	
 	/**
+	 * If a model has a foreign key to this model, this method returns
+	 * all instances of that model that have a foreign key reference to
+	 * this instance.
+	 * <br><br>
+	 * For instance, if a model called "Books" includes a foreign key to "Author,"
+	 * calling myAuthor.getRelationSet(Book); will return the list of books that
+	 * reference myAuthor.
+	 * @param _model
+	 * @return
+	 */
+	public QuerySet getRelationSet(Class<? extends Model> _model, String _fieldName) {
+		Model self = this;
+		
+		QuerySet modelObjects = Model.getObjectsForGenericType(_model);
+		QuerySet relatedInstances = modelObjects.filter(new ArrayList<WhereCondition>(){{
+			add(new WhereCondition(_fieldName, WhereCondition.EQUALS, self.id.val()));
+		}});
+		
+		return relatedInstances;
+	}
+	
+	/**
 	 * Delete this object from the database.
 	 */
 	@SuppressWarnings({ "unchecked", "rawtypes" })

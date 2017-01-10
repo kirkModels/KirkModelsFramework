@@ -77,13 +77,15 @@ public abstract class SavableField <T> {
 	 * returns the type returned by the jdbc field type.
 	 * @return
 	 */
-	public abstract String getPseudoPsqlDefinition();
+	public abstract int getReturnedSqlDefinition();
 	
 	/**
-	 * returns the type returned by the jdbc field type.
+	 * Return the string representation of the the data type
+	 * that is represented by _type.
+	 * @param _type - integer identifyer for the datatype. See {@link java.sql.Types} datatypes (http://docs.oracle.com/javase/6/docs/api/java/sql/Types.html)
 	 * @return
 	 */
-	public abstract String getPseudoMySqlDefinition();
+	public abstract String getTypeString(int _type);
 	
 	/**
 	 * This tests to see if the field is exactly the same as

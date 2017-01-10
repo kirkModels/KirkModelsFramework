@@ -1,6 +1,7 @@
 package com.ianmann.database.fields;
 
 import java.lang.reflect.Constructor;
+import java.sql.Types;
 import java.util.HashMap;
 
 import com.ianmann.database.config.Settings;
@@ -143,26 +144,30 @@ public class IntegerField extends SavableField<Integer> implements JSONMappable 
 	 * a smallint while int4 is an integer and so on.
 	 * @return
 	 */
-	public String getPseudoPsqlDefinition() {
-		switch (this.PSQL_TYPE) {
-		case "smallint":
-			return "int2";
-		case "integer":
-			return "int4";
-		case "bigint":
-			return "int6"; //idk if this is correct. haven't tried this for bigint.
-		default:
-			return null;
+	@Override
+	public int getReturnedSqlDefinition() {
+		String type = "";
+		
+		if (Settings.database.language.equals(Settings.database.MYSQL)) {
+			type = this.MYSQL_TYPE;
+		} else if (Settings.database.language.equals(Settings.database.POSTRESQL)) {
+			type = this.PSQL_TYPE;
 		}
-	}
-
-	/**
-	 * @Override
-	 * I don't know what will be returned by jdbc at this point so this will return null
-	 */
-	public String getPseudoMySqlDefinition() {
-		// TODO Auto-generated method stub
-		return null;
+		
+		switch (type) {
+		case "tinyint":
+			return Types.TINYINT;
+		case "smallint":
+			return Types.SMALLINT;
+		case "integer":
+			return Types.INTEGER;
+		case "int":
+			return Types.INTEGER;
+		case "bigint":
+			return Types.BIGINT;
+		default:
+			return -100;
+		}
 	}
 	
 	public String getPsqlIntType(Integer maxVal) {
@@ -208,11 +213,10 @@ public class IntegerField extends SavableField<Integer> implements JSONMappable 
 		 * If the column is any type of int, we will say it's still the same type.
 		 * We'll handle size in the equals method above.
 		 */
-		if (_column.getDataType().equalsIgnoreCase("smallint")
-				|| _column.getDataType().equalsIgnoreCase("integer")
-				|| _column.getDataType().equalsIgnoreCase("bigint")
-				|| _column.getDataType().equalsIgnoreCase("mediumint")
-				|| _column.getDataType().equalsIgnoreCase("int")) {
+		if (_column.getDataType() == Types.TINYINT
+				||_column.getDataType() == Types.SMALLINT
+				|| _column.getDataType() == Types.INTEGER
+				|| _column.getDataType() == Types.BIGINT) {
 			return true;
 		} else {
 			return false;
@@ -237,11 +241,33 @@ public class IntegerField extends SavableField<Integer> implements JSONMappable 
 		return diffs;
 	}
 	
+	@Override
+	public String getTypeString(int _type) {
+		switch(_type) {
+		case Types.TINYINT:
+			return "tinyint";
+		case Types.SMALLINT:
+			return "smallint";
+		case Types.INTEGER:
+			if (Settings.database.language.equals(Settings.database.MYSQL)) {
+				return "int";
+			} else if (Settings.database.language.equals(Settings.database.POSTRESQL)) {
+				return "integer";
+			} else {
+				return "Unknown Language";
+			}
+		case Types.BIGINT:
+			return "bigint";
+		default:
+			return "Invalid Identifyer";
+		}
+	}
+	
 	public String getTypeDifference(MetaTableColumn _column) {
-		if (this.getPseudoPsqlDefinition().equals(_column.getDataType())) {
+		if (this.getReturnedSqlDefinition() == _column.getDataType()) {
 			return null;
 		} else {
-			return _column.getDataType();
+			return this.getTypeString(_column.getDataType());
 		}
 	}
 	

@@ -1,6 +1,7 @@
 package com.ianmann.database.fields;
 
 import java.lang.reflect.Constructor;
+import java.sql.Types;
 import java.util.HashMap;
 
 import iansLibrary.data.databases.MetaTableColumn;
@@ -28,8 +29,8 @@ public class CharField extends SavableField<String> implements JSONMappable {
 			this.value = _defaultValue;
 		}
 		this.maxLength = _maxLength;
-		this.MYSQL_TYPE = "VARCHAR(" + this.maxLength + ")";
-		this.PSQL_TYPE = "varchar(" + this.maxLength + ")";
+		this.MYSQL_TYPE = "VARCHAR";
+		this.PSQL_TYPE = "varchar";
 		this.JAVA_TYPE = String.class;
 	}
 	
@@ -75,7 +76,7 @@ public class CharField extends SavableField<String> implements JSONMappable {
 	}
 	
 	public String getMySqlDefinition() {
-		String sql = this.MYSQL_TYPE;
+		String sql = this.MYSQL_TYPE + "(" + this.maxLength + ")";
 		if(!this.isNull){
 			sql = sql + " NOT NULL";
 		}
@@ -83,19 +84,15 @@ public class CharField extends SavableField<String> implements JSONMappable {
 	}
 	
 	public String getPsqlDefinition() {
-		String sql = this.PSQL_TYPE;
+		String sql = this.PSQL_TYPE + "(" + this.maxLength + ")";
 		if(!this.isNull){
 			sql = sql + " NOT NULL";
 		}
 		return sql;
 	}
 	
-	public String getPseudoPsqlDefinition() {
-		return "varchar";
-	}
-	
-	public String getPseudoMySqlDefinition() {
-		return "varchar";
+	public int getReturnedSqlDefinition() {
+		return Types.VARCHAR;
 	}
 
 	@Override
@@ -103,8 +100,7 @@ public class CharField extends SavableField<String> implements JSONMappable {
 		// TODO Auto-generated method stub
 		if (!this.label.equals(_column.getColumnName())) {
 			return false;
-		} else if (!_column.getDataType().equalsIgnoreCase(this.MYSQL_TYPE.split("[(]")[0]) ||
-					!_column.getDataType().equalsIgnoreCase(this.PSQL_TYPE.split("[(]")[0])) {
+		} else if (_column.getDataType() != this.getReturnedSqlDefinition()) {
 			return false;
 		} else if ((this.isNull.booleanValue() ? 1 : 0) != _column.getNullable()) {
 			return false;
@@ -124,7 +120,7 @@ public class CharField extends SavableField<String> implements JSONMappable {
 		// TODO Auto-generated method stub
 		if (!this.label.equals(_column.getColumnName())) {
 			return false;
-		} else if (!_column.getDataType().equalsIgnoreCase("varchar")) {
+		} else if (_column.getDataType() != this.getReturnedSqlDefinition()) {
 			return false;
 		}
 		return true;
@@ -186,6 +182,16 @@ public class CharField extends SavableField<String> implements JSONMappable {
 			}
 		} else {
 			return null;
+		}
+	}
+	
+	@Override
+	public String getTypeString(int _type) {
+		switch(_type) {
+		case Types.VARCHAR:
+			return "varchar";
+		default:
+			return "Unknown Identifier";
 		}
 	}
 }

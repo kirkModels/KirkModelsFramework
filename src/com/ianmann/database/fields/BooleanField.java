@@ -1,7 +1,11 @@
 package com.ianmann.database.fields;
 
 import java.lang.reflect.Constructor;
+import java.sql.Types;
 import java.util.HashMap;
+
+import com.ianmann.database.config.Settings;
+import com.ianmann.database.utils.exceptions.LanguageNotSupportedError;
 
 import iansLibrary.data.databases.MetaTableColumn;
 import iansLibrary.utilities.JSONMappable;
@@ -24,7 +28,7 @@ public class BooleanField extends SavableField<Boolean> implements JSONMappable 
 				e.printStackTrace();
 			}
 		}
-		this.MYSQL_TYPE = "BIT(1)";
+		this.MYSQL_TYPE = "BIT";
 		this.PSQL_TYPE = "BOOLEAN";
 		this.JAVA_TYPE = Boolean.class;
 	}
@@ -66,7 +70,7 @@ public class BooleanField extends SavableField<Boolean> implements JSONMappable 
 	}
 	
 	public String getMySqlDefinition() {
-		String sql = this.MYSQL_TYPE;
+		String sql = this.MYSQL_TYPE + "(1)";
 		if(this.defaultValue == false){
 			sql = sql + " DEFAULT " + 0;
 		}
@@ -87,8 +91,8 @@ public class BooleanField extends SavableField<Boolean> implements JSONMappable 
 		// TODO Auto-generated method stub
 				if (!this.label.equals(_column.getColumnName())) {
 					return false;
-				} else if (!_column.getDataType().equalsIgnoreCase(this.MYSQL_TYPE.split("(")[0]) ||
-							!_column.getDataType().equalsIgnoreCase(this.PSQL_TYPE)) {
+				} else if (_column.getDataType() != Types.BIT ||
+							_column.getDataType() != Types.BOOLEAN) {
 					return false;
 				} else if ((this.isNull.booleanValue() ? 1 : 0) != _column.getNullable()) {
 					return false;
@@ -106,8 +110,8 @@ public class BooleanField extends SavableField<Boolean> implements JSONMappable 
 		// TODO Auto-generated method stub
 		if (!this.label.equals(_column.getColumnName())) {
 			return false;
-		} else if (!_column.getDataType().equalsIgnoreCase("bit")
-				|| !_column.getDataType().equalsIgnoreCase("boolean")) {
+		} else if (_column.getDataType() != Types.BIT ||
+					_column.getDataType() != Types.BOOLEAN) {
 			return false;
 		}
 		return true;
@@ -134,10 +138,10 @@ public class BooleanField extends SavableField<Boolean> implements JSONMappable 
 	}
 	
 	public String getTypeDifference(MetaTableColumn _column) {
-		if (this.getPseudoPsqlDefinition().equals(_column.getDataType())) {
+		if (this.getReturnedSqlDefinition() == _column.getDataType()) {
 			return null;
 		} else {
-			return _column.getDataType();
+			return this.getTypeString(_column.getDataType());
 		}
 	}
 	
@@ -172,22 +176,28 @@ public class BooleanField extends SavableField<Boolean> implements JSONMappable 
 			return null;
 		}
 	}
-
-	/**
-	 * @Override
-	 * I don't know what will be returned at this point so this method returns null.
-	 */
-	public String getPseudoPsqlDefinition() {
-		// TODO Auto-generated method stub
-		return null;
+	
+	@Override
+	public String getTypeString(int _type) {
+		switch(_type) {
+		case Types.BIT:
+			return "bit";
+		case Types.BOOLEAN:
+			return "boolean";
+		default:
+			return "Invalid Identifyer";
+		}
 	}
 
-	/**
-	 * @Override
-	 * I don't know what will be returned at this point so this method returns null.
-	 */
-	public String getPseudoMySqlDefinition() {
+	@Override
+	public int getReturnedSqlDefinition() {
 		// TODO Auto-generated method stub
-		return null;
+		if (Settings.database.language.equals(Settings.database.MYSQL)) {
+			return Types.BIT;
+		} else if (Settings.database.language.equals(Settings.database.POSTRESQL)) {
+			return Types.BOOLEAN;
+		} else {
+			throw new LanguageNotSupportedError(Settings.database.language);
+		}
 	}
 }
