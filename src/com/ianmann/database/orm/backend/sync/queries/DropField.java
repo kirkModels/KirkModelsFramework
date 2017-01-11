@@ -1,9 +1,13 @@
 package com.ianmann.database.orm.backend.sync.queries;
 
+import java.lang.reflect.Constructor;
+
 import com.ianmann.database.fields.ManyToManyField;
 import com.ianmann.database.fields.SavableField;
 
-public class DropField extends ColumnOperation {
+import iansLibrary.utilities.JSONMappable;
+
+public class DropField extends ColumnOperation implements JSONMappable {
 	
 	public static final String CASCADE = " CASCADE";
 	public static final String RESTRICT = " RESTRICT";
@@ -12,7 +16,7 @@ public class DropField extends ColumnOperation {
 	 */
 	public static final String DEFAULT = "";
 	
-	protected String option = "";
+	public String option = "";
 
 	public DropField(SavableField _field, String _option) {
 		super(_field.label);
@@ -41,6 +45,30 @@ public class DropField extends ColumnOperation {
 	public String getPsqlString() {
 		// TODO Auto-generated method stub
 		return "DROP COLUMN " + this.fieldName + this.option;
+	}
+
+	@Override
+	public Constructor getJsonConstructor() {
+		// TODO Auto-generated method stub
+		Class[] paramTypes = new Class[]{
+				String.class,
+				String.class,
+		};
+		try {
+			return this.getClass().getConstructor(paramTypes);
+		} catch (NoSuchMethodException | SecurityException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return null;
+		}
+	}
+	
+	@Override
+	public String[] getConstructorFieldOrder() {
+		return new String[]{
+				"fieldName",
+				"option",
+		};
 	}
 
 }

@@ -52,7 +52,6 @@ public final class JSONClassMapping {
 		
 		public static Object jsonObjectToObject(JSONObject jsonVal) throws ClassNotFoundException, NoSuchMethodException, InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException {
 			Object toReturn = null;
-//			System.out.println(jsonVal);
 			
 			//figure out how to see if a class is a subclass of Query
 			if (Query.class.isAssignableFrom(Class.forName((String) jsonVal.get("type")))) {
@@ -68,7 +67,6 @@ public final class JSONClassMapping {
 					//set value at key to attribute of toReturn.
 					i = Integer.valueOf(((String) key).split("#")[0]) - 1;
 					Class type = Class.forName(((String) key).split("#")[1]);
-//					System.out.println("\tkey: " + key + " value: " + jsonVal.get(key));
 					Object value = null;
 					
 					if (type.equals(Class.class)) {
@@ -76,12 +74,9 @@ public final class JSONClassMapping {
 					} else {
 						value = jsonAnyToObject(jsonVal.get(key));
 					}
-//					System.out.println("\t\tkey: " + key + " value: " + value);
 					
-//					System.out.println("javaVal = " + value);
 					paramTypes[i] = type;
 					paramValues[i] = value;
-//					if(i == 2) System.out.println(Arrays.toString((Object[]) value));
 				}
 			}
 			
@@ -93,7 +88,6 @@ public final class JSONClassMapping {
 				}
 				e.printStackTrace();
 			}
-//			System.out.println(toReturn.getClass());
 			
 			return toReturn;
 		}
@@ -105,9 +99,7 @@ public final class JSONClassMapping {
 			Class typeClass = Class.forName(dataType);
 			toReturn = Array.newInstance(typeClass, jsonVal.size() - 1);
 			
-//			System.out.println(jsonVal.size());
 			for (int i = 1; i < jsonVal.size(); i ++) {
-//				System.out.println("i: " + jsonVal.get(i));
 				Object javaVal = jsonAnyToObject(jsonVal.get(i));
 				try {
 					Array.set(toReturn, i-1, javaVal);

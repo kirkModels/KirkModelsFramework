@@ -10,6 +10,7 @@ import com.ianmann.database.fields.ManyToManyField;
 import com.ianmann.database.fields.SavableField;
 import com.ianmann.database.orm.Model;
 import com.ianmann.database.orm.queries.Query;
+import com.ianmann.database.utils.exceptions.LanguageNotSupportedError;
 
 import iansLibrary.utilities.JSONMappable;
 
@@ -110,21 +111,18 @@ public class CreateTable extends Query implements JSONMappable {
 		
 		String sql = "";
 		
-		switch (language) {
-		case "MySQL":
+		if (language.equals(Settings.database.MYSQL)) {
 			
 			sql = this.getMySqlFieldStrings();
-			break;
 			
-		case "postgreSQL":
+		} else if (language.equals(Settings.database.POSTRESQL)) {
 			
 			sql = this.getPsqlFieldStrings();
-			break;
-
-		default:
 			
-			sql = "No default language.";
-			break;
+		} else {
+			
+			throw new LanguageNotSupportedError();
+			
 		}
 		
 		return sql;
@@ -194,8 +192,6 @@ public class CreateTable extends Query implements JSONMappable {
 
 	@Override
 	public void run() throws SQLException {
-		// TODO Auto-generated method stub
-//		System.out.println(this.command);
 		Settings.database.run(this.command);
 	}
 

@@ -193,12 +193,10 @@ public class IntegerField extends SavableField<Integer> implements JSONMappable 
 			return false;
 		} else if (this.getTypeDifference(_column) != null) {
 			return false;
-		}
-		try {
-			this.getDefaultValueDifference(_column);
+		} else if (this.getDefaultValueDifference(_column) != null) {
 			return false;
-		} catch (NoSuchFieldException e) {
-			return true; //if it throws the exception, that means they are the same.
+		} else {
+			return true;
 		}
 	}
 
@@ -229,13 +227,12 @@ public class IntegerField extends SavableField<Integer> implements JSONMappable 
 		
 		if (this.getDifferenceNullable(_column) != null) {
 			diffs.put("nullable", this.getDifferenceNullable(_column));
-		} else if (this.getTypeDifference(_column) != null) {
+		}
+		if (this.getTypeDifference(_column) != null) {
 			diffs.put("type", this.getTypeDifference(_column));
 		}
-		try {
-			this.getDefaultValueDifference(_column);
+		if (this.getDefaultValueDifference(_column) != null) {
 			diffs.put("default", this.getDefaultValueDifference(_column));
-		} catch (NoSuchFieldException e) {//if it throws the exception, that means they are the same.
 		}
 		
 		return diffs;
@@ -271,19 +268,19 @@ public class IntegerField extends SavableField<Integer> implements JSONMappable 
 		}
 	}
 	
-	public Integer getDefaultValueDifference(MetaTableColumn _column) throws NoSuchFieldException {
+	public Integer getDefaultValueDifference(MetaTableColumn _column) {
 		if (this.defaultValue == null) {
 			if (_column.getDefaultValue() != null) {
 				return Integer.valueOf((String) _column.getDefaultValue());
 			} else {
-				throw new NoSuchFieldException("The two default values are the same.");
+				return null;
 			}
 		} else {
 			if (_column.getDefaultValue() == null) {
 				return this.defaultValue;
 			} else {
 				if (Integer.valueOf((String) _column.getDefaultValue()).equals(this.defaultValue)) {
-					throw new NoSuchFieldException("The two default values are the same.");
+					return null;
 				} else {
 					return Integer.valueOf((String) _column.getDefaultValue());
 				}

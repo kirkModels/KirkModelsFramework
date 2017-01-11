@@ -199,12 +199,12 @@ public final class MigrationGenerator {
 		
 		if (migrationFolder.exists()) {
 			File nextMigrationFile = this.createMigrationFile(migrationFolder);
-			System.out.println("next one: " + nextMigrationFile.getAbsolutePath());
+			System.out.println("next migration: " + nextMigrationFile.getAbsolutePath());
 			return nextMigrationFile;
 		} else {
 			if (migrationFolder.mkdirs()) { //create folder to store migration files
 				File newMigrationInitFile = this.createMigrationFile(migrationFolder);
-				System.out.println("new one: " + newMigrationInitFile.getAbsolutePath());
+				System.out.println("new migration: " + newMigrationInitFile.getAbsolutePath());
 				return newMigrationInitFile;
 			} else {
 				return null;
@@ -547,7 +547,7 @@ public final class MigrationGenerator {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (NullPointerException e) {
-			System.out.println("No migration for class: " + this.type);
+			System.out.println("No changes detected for model: " + this.type);
 		}
 	}
 	

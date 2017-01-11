@@ -29,8 +29,8 @@ public class CharField extends SavableField<String> implements JSONMappable {
 			this.value = _defaultValue;
 		}
 		this.maxLength = _maxLength;
-		this.MYSQL_TYPE = "VARCHAR";
-		this.PSQL_TYPE = "varchar";
+		this.MYSQL_TYPE = "VARCHAR" + "(" + this.maxLength + ")";
+		this.PSQL_TYPE = "varchar" + "(" + this.maxLength + ")";
 		this.JAVA_TYPE = String.class;
 	}
 	
@@ -76,7 +76,7 @@ public class CharField extends SavableField<String> implements JSONMappable {
 	}
 	
 	public String getMySqlDefinition() {
-		String sql = this.MYSQL_TYPE + "(" + this.maxLength + ")";
+		String sql = this.MYSQL_TYPE;
 		if(!this.isNull){
 			sql = sql + " NOT NULL";
 		}
@@ -84,7 +84,7 @@ public class CharField extends SavableField<String> implements JSONMappable {
 	}
 	
 	public String getPsqlDefinition() {
-		String sql = this.PSQL_TYPE + "(" + this.maxLength + ")";
+		String sql = this.PSQL_TYPE;
 		if(!this.isNull){
 			sql = sql + " NOT NULL";
 		}
@@ -104,10 +104,7 @@ public class CharField extends SavableField<String> implements JSONMappable {
 			return false;
 		} else if ((this.isNull.booleanValue() ? 1 : 0) != _column.getNullable()) {
 			return false;
-		} else if ((this.defaultValue == null && _column.getDefaultValue() != null)
-				|| (this.defaultValue != null && _column.getDefaultValue() == null)) {
-			return false;
-		} else if (this.defaultValue != null && !this.defaultValue.equals(_column.getDefaultValue())) {
+		} else if (this.getDefaultValueDifference(_column) != null) {
 			return false;
 		} else if (this.maxLength != _column.getColumnSize()) {
 			return false;
@@ -136,10 +133,8 @@ public class CharField extends SavableField<String> implements JSONMappable {
 		if (this.getSizeDifference(_column) != null) {
 			diffs.put("size", this.getSizeDifference(_column));
 		}
-		try {
-			this.getDefaultValueDifference(_column);
+		if (this.getDefaultValueDifference(_column) != null) {
 			diffs.put("default", this.getDefaultValueDifference(_column));
-		} catch (NoSuchFieldException e) {//if it throws the exception, that means they are the same.
 		}
 		
 		return diffs;
@@ -153,19 +148,19 @@ public class CharField extends SavableField<String> implements JSONMappable {
 		}
 	}
 	
-	public String getDefaultValueDifference(MetaTableColumn _column) throws NoSuchFieldException {
+	public String getDefaultValueDifference(MetaTableColumn _column) {
 		if (this.defaultValue == null) {
 			if (_column.getDefaultValue() != null) {
 				return (String) _column.getDefaultValue();
 			} else {
-				throw new NoSuchFieldException("The two default values are the same.");
+				return null;
 			}
 		} else {
 			if (_column.getDefaultValue() == null) {
 				return (String) _column.getDefaultValue();
 			} else {
 				if (((String) _column.getDefaultValue()).equals(this.defaultValue)) {
-					throw new NoSuchFieldException("The two default values are the same.");
+					return null;
 				} else {
 					return (String) _column.getDefaultValue();
 				}

@@ -43,8 +43,18 @@ public class MetaTable {
 		int nullable = _fieldResult.getInt(MetaTableColumn.NULLABLE);
 		String defaultValue = _fieldResult.getString(MetaTableColumn.COLUMN_DEF);
 		int columnSize = _fieldResult.getInt(MetaTableColumn.COLUMN_SIZE);
+		int decimalPlaces = _fieldResult.getInt(MetaTableColumn.DECIMAL_PLACES);
 		
-		MetaTableColumn column = new MetaTableColumn(columnName, dataType, nullable, defaultValue, columnSize);
+		if (defaultValue != null) {
+			/*
+			 * Values of type varchar are returned as 'default_value'::character varying
+			 * So this removes the extra stuff.
+			 */
+			defaultValue = defaultValue.split("'::")[0];
+			defaultValue = defaultValue.replace("'", "");
+		}
+		
+		MetaTableColumn column = new MetaTableColumn(columnName, dataType, nullable, defaultValue, columnSize, decimalPlaces);
 		return column;
 	}
 	

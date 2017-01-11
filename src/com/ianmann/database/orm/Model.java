@@ -10,6 +10,7 @@ import javax.swing.JOptionPane;
 
 import com.ianmann.database.config.Settings;
 import com.ianmann.database.fields.CharField;
+import com.ianmann.database.fields.DecimalField;
 import com.ianmann.database.fields.ForeignKey;
 import com.ianmann.database.fields.IntegerField;
 import com.ianmann.database.fields.ManyToManyField;
@@ -621,6 +622,19 @@ public abstract class Model {
 			} else if (operationDesc.equals("size")) {
 				// If the size of the field has changed, add that change as a com.ianmann.database.orm.backend.sync.queries.ColumnDefinitionChange to operations
 				if (((CharField) _newField).maxLength > _column.getColumnSize()) {
+					operations.add(new ColumnDefinitionChange(_newField.label, _newField, ColumnDefinitionChange.INCREASE_SIZE));
+				} else {
+					/*
+					 * The size of the field is smaller so instead of decreasing the size, to be safe,
+					 * we will drop the column and add another one with a smaller value. 
+					 * this will cause current data to lose info for this column.
+					 */
+					operations.add(new DropField(_newField.label, DropField.CASCADE));
+					operations.add(new AddColumn(_newField));
+				}
+			} else if (operationDesc.equals("precision/scale")) {
+				// If the size of the field has changed, add that change as a com.ianmann.database.orm.backend.sync.queries.ColumnDefinitionChange to operations
+				if (((DecimalField) _newField).precision >= _column.getColumnSize() && ((DecimalField) _newField).scale <= _column.getDecimalPlaces()) {
 					operations.add(new ColumnDefinitionChange(_newField.label, _newField, ColumnDefinitionChange.INCREASE_SIZE));
 				} else {
 					/*

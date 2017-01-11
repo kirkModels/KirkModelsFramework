@@ -9,6 +9,7 @@ import com.ianmann.database.config.Settings;
 import com.ianmann.database.orm.Model;
 import com.ianmann.database.orm.QuerySet;
 import com.ianmann.database.orm.queries.scripts.WhereCondition;
+import com.ianmann.database.utils.exceptions.LanguageNotSupportedError;
 
 public abstract class Query {
 
@@ -36,21 +37,18 @@ public abstract class Query {
 		
 		String sql = "";
 		
-		switch (language) {
-		case "MySQL":
+		if (language.equals(Settings.database.MYSQL)) {
 			
 			sql = this.getMySqlString();
-			break;
 			
-		case "postgreSQL":
+		} else if (language.equals(Settings.database.POSTRESQL)) {
 			
 			sql = this.getPsqlString();
-			break;
-
-		default:
 			
-			sql = "No default language.";
-			break;
+		} else {
+			
+			throw new LanguageNotSupportedError();
+			
 		}
 		
 		return sql;
