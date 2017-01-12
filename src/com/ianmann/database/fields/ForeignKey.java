@@ -96,6 +96,11 @@ public class ForeignKey<T extends Model> extends IntegerField implements JSONMap
 		}
 	}
 	
+	/**
+	 * Get referenced instance as model instance represented in this foreign key.
+	 * @return
+	 * @throws ObjectNotFoundException - if the instance referenced in this foreign key does not exist (Implies broken foreign key constraint).
+	 */
 	public T getRef() throws ObjectNotFoundException{
 		
 		if (this.value != null && this.referencedInstant != null) {

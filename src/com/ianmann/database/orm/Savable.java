@@ -13,11 +13,11 @@ public interface Savable <T extends Model> {
 	
 	public QuerySet<T> all();
 	
-	public T create(ArrayList<WhereCondition> conditions) throws ObjectAlreadyExistsException;
+	public T create(ArrayList<WhereCondition> conditions) throws ObjectAlreadyExistsException, SQLException;
 	
 	public T get(ArrayList<WhereCondition> conditions) throws ObjectNotFoundException;
 	
-	public Entry<T, Boolean> getOrCreate(ArrayList<WhereCondition> conditions);
+	public Entry<T, Boolean> getOrCreate(ArrayList<WhereCondition> conditions) throws SQLException;
 	
 	public QuerySet<T> filter(ArrayList<WhereCondition> conditions);
 	

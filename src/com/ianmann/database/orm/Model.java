@@ -715,4 +715,18 @@ public abstract class Model {
 			return newName;
 		}
 	}
+	
+	/**
+	 * Determines (based on {@code this.id}) if this instance is the same
+	 * as that represented by {@code o}. 
+	 * @param o
+	 * @return
+	 */
+	public boolean equals(Model o) {
+		if (this.id.val() == o.id.val()) {
+			return true;
+		} else {
+			return false;
+		}
+	}
 }

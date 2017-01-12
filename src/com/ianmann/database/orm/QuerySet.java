@@ -364,7 +364,7 @@ public class QuerySet<T extends Model> implements Savable<T>, Iterable<T>{
 	}
 	
 	@Override
-	public T create(ArrayList<WhereCondition> conditions) throws ObjectAlreadyExistsException {
+	public T create(ArrayList<WhereCondition> conditions) throws ObjectAlreadyExistsException, SQLException {
 		conditions = this.combineConditions(conditions);
 		
 		if (((Boolean) conditionsContain(conditions, "id")[0])) {
@@ -399,12 +399,7 @@ public class QuerySet<T extends Model> implements Savable<T>, Iterable<T>{
 			newInstance.id.set(newId);
 			
 			InsertQuery query = new InsertQuery(newInstance);
-			try {
-				query.run();
-			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+			query.run();
 		}
 		
 		this.storage.add(newInstance);
@@ -439,7 +434,7 @@ public class QuerySet<T extends Model> implements Savable<T>, Iterable<T>{
 	}
 
 	@Override
-	public Entry<T, Boolean> getOrCreate(ArrayList<WhereCondition> conditions){
+	public Entry<T, Boolean> getOrCreate(ArrayList<WhereCondition> conditions) throws SQLException{
 		conditions = this.combineConditions(conditions);
 		
 		try{

@@ -48,23 +48,29 @@ public class DbSync {
 	}
 	
 	public static void syncBaseDatabase() {
-		for (String tableName : Settings.syncedModels.keySet()) {
-			Class<? extends Model> modelClass = Settings.syncedModels.get(tableName);
-			MigrationTracking mt = MigrationTracking.objects.getOrCreate(new ArrayList<WhereCondition>(){{
-				add(new WhereCondition("model_name", WhereCondition.EQUALS, modelClass.getName()));
-			}}).getKey();
-			
-			for (int i = 0; i < getMigrationFilesForModel(getMigrationFolderForModel(modelClass)).length; i++) {
-				File migFile = getMigrationFilesForModel(getMigrationFolderForModel(modelClass))[i];
-				String fileName = migFile.getName();
-				String dirName = migFile.getParentFile().getAbsolutePath().replace(Settings.BINARY_ROOT, "");
-				MigrationFile f = MigrationFile.objects.getOrCreate(new ArrayList<WhereCondition>(){{
-					add(new WhereCondition("file_name", WhereCondition.EQUALS, fileName));
-					add(new WhereCondition("dir_path", WhereCondition.EQUALS, dirName));
-					add(new WhereCondition("model_name", WhereCondition.EQUALS, modelClass.getName()));
-					add(new WhereCondition("migration_tracker", WhereCondition.EQUALS, mt.id.val()));
-				}}).getKey();
+		try {
+			for (String tableName : Settings.syncedModels.keySet()) {
+				Class<? extends Model> modelClass = Settings.syncedModels.get(tableName);
+				MigrationTracking mt;
+					mt = MigrationTracking.objects.getOrCreate(new ArrayList<WhereCondition>(){{
+						add(new WhereCondition("model_name", WhereCondition.EQUALS, modelClass.getName()));
+					}}).getKey();
+				
+				for (int i = 0; i < getMigrationFilesForModel(getMigrationFolderForModel(modelClass)).length; i++) {
+					File migFile = getMigrationFilesForModel(getMigrationFolderForModel(modelClass))[i];
+					String fileName = migFile.getName();
+					String dirName = migFile.getParentFile().getAbsolutePath().replace(Settings.BINARY_ROOT, "");
+					MigrationFile f = MigrationFile.objects.getOrCreate(new ArrayList<WhereCondition>(){{
+						add(new WhereCondition("file_name", WhereCondition.EQUALS, fileName));
+						add(new WhereCondition("dir_path", WhereCondition.EQUALS, dirName));
+						add(new WhereCondition("model_name", WhereCondition.EQUALS, modelClass.getName()));
+						add(new WhereCondition("migration_tracker", WhereCondition.EQUALS, mt.id.val()));
+					}}).getKey();
+				}
 			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 	}
 	

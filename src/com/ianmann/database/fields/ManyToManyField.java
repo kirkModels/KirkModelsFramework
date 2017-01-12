@@ -294,7 +294,7 @@ public class ManyToManyField<T extends Model, R extends Model> extends Model imp
 	}
 
 	@Override
-	public R create(ArrayList<WhereCondition> conditions) throws ObjectAlreadyExistsException {
+	public R create(ArrayList<WhereCondition> conditions) throws ObjectAlreadyExistsException, SQLException {
 		R newInstance = this.objectSet.create(conditions);
 		
 		this.add(newInstance);
@@ -330,7 +330,7 @@ public class ManyToManyField<T extends Model, R extends Model> extends Model imp
 	}
 
 	@Override
-	public Entry<R, Boolean> getOrCreate(ArrayList<WhereCondition> conditions) {
+	public Entry<R, Boolean> getOrCreate(ArrayList<WhereCondition> conditions) throws SQLException {
 		
 		try{
 			R result = this.get(conditions);
