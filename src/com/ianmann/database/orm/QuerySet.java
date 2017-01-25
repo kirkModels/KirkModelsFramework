@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.LinkedList;
 import java.util.Map.Entry;
 
 import com.ianmann.database.config.Settings;
@@ -100,6 +101,30 @@ public class QuerySet<T extends Model> implements Savable<T>, Iterable<T>{
 		
 		this.conditions = conditions;
 		this.updateStorage();
+	}
+	
+	/**
+	 * Returns this {@code QuerySet} as an {@code ArrayList}.
+	 * @return
+	 */
+	public ArrayList<T> asArrayList() {
+		ArrayList<T> list = new ArrayList<T>();
+		for (T instance : this.all()) {
+			list.add(instance);
+		}
+		return list;
+	}
+	
+	/**
+	 * Returns this {@code QuerySet} as an {@code LinkedList}.
+	 * @return
+	 */
+	public LinkedList<T> asLinkedList() {
+		LinkedList<T> list = new LinkedList<T>();
+		for (T instance : this.all()) {
+			list.add(instance);
+		}
+		return list;
 	}
 	
 	private void updateStorage(){
