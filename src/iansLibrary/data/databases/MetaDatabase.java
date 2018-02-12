@@ -15,9 +15,9 @@ import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
-import com.ianmann.database.config.Settings;
-import com.ianmann.database.fields.SavableField;
-import com.ianmann.database.utils.Utilities;
+import com.ianmann.database.orm.config.Settings;
+import com.ianmann.database.orm.scema.fields.SavableField;
+import com.ianmann.database.orm.utils.Utilities;
 
 import java.sql.Connection;
 import java.sql.DatabaseMetaData;

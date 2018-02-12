@@ -6,11 +6,10 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import com.ianmann.database.config.Settings;
 import com.ianmann.database.orm.Model;
 import com.ianmann.database.orm.QuerySet;
-import com.ianmann.database.orm.backend.sync.migrationTracking.MigrationTracking;
-import com.ianmann.database.orm.queries.scripts.WhereCondition;
+import com.ianmann.database.orm.config.Settings;
+import com.ianmann.database.orm.schema.migrationTracking.MigrationTracking;
 
 public class SelectQuery extends WhereConditionedQuery {
 	

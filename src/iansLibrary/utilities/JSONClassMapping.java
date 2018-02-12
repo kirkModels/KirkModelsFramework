@@ -10,10 +10,10 @@ import java.util.Set;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
-import com.ianmann.database.config.Settings;
-import com.ianmann.database.fields.ManyToManyField;
 import com.ianmann.database.orm.Model;
+import com.ianmann.database.orm.config.Settings;
 import com.ianmann.database.orm.queries.Query;
+import com.ianmann.database.orm.scema.fields.ManyToManyField;
 
 public final class JSONClassMapping {
 		

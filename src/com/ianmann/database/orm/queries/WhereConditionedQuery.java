@@ -4,7 +4,6 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 import com.ianmann.database.orm.Model;
-import com.ianmann.database.orm.queries.scripts.WhereCondition;
 
 public abstract class WhereConditionedQuery extends Query {
 

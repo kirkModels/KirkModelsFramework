@@ -3,9 +3,8 @@ package com.ianmann.database.orm.queries;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-import com.ianmann.database.config.Settings;
 import com.ianmann.database.orm.Model;
-import com.ianmann.database.orm.queries.scripts.WhereCondition;
+import com.ianmann.database.orm.config.Settings;
 
 public class DeleteQuery extends WhereConditionedQuery {
 

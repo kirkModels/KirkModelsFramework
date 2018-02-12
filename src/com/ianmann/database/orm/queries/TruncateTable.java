@@ -2,7 +2,7 @@ package com.ianmann.database.orm.queries;
 
 import java.sql.SQLException;
 
-import com.ianmann.database.config.Settings;
+import com.ianmann.database.orm.config.Settings;
 
 public class TruncateTable extends Query {
 	

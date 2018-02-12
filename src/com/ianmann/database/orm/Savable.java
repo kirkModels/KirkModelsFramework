@@ -5,9 +5,9 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map.Entry;
 
-import com.ianmann.database.orm.queries.scripts.WhereCondition;
-import com.ianmann.database.utils.exceptions.ObjectAlreadyExistsException;
-import com.ianmann.database.utils.exceptions.ObjectNotFoundException;
+import com.ianmann.database.orm.queries.WhereCondition;
+import com.ianmann.database.orm.utils.exceptions.ObjectAlreadyExistsException;
+import com.ianmann.database.orm.utils.exceptions.ObjectNotFoundException;
 
 public interface Savable <T extends Model> {
 	

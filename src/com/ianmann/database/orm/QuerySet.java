@@ -12,14 +12,14 @@ import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.Map.Entry;
 
-import com.ianmann.database.config.Settings;
-import com.ianmann.database.fields.ManyToManyField;
-import com.ianmann.database.fields.SavableField;
+import com.ianmann.database.orm.config.Settings;
 import com.ianmann.database.orm.queries.InsertQuery;
 import com.ianmann.database.orm.queries.SelectQuery;
-import com.ianmann.database.orm.queries.scripts.WhereCondition;
-import com.ianmann.database.utils.exceptions.ObjectAlreadyExistsException;
-import com.ianmann.database.utils.exceptions.ObjectNotFoundException;
+import com.ianmann.database.orm.queries.WhereCondition;
+import com.ianmann.database.orm.scema.fields.ManyToManyField;
+import com.ianmann.database.orm.scema.fields.SavableField;
+import com.ianmann.database.orm.utils.exceptions.ObjectAlreadyExistsException;
+import com.ianmann.database.orm.utils.exceptions.ObjectNotFoundException;
 
 public class QuerySet<T extends Model> implements Savable<T>, Iterable<T>{
 	

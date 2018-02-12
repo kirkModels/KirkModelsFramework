@@ -4,7 +4,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-import com.ianmann.database.fields.SavableField;
+import com.ianmann.database.orm.scema.fields.SavableField;
 
 public class MetaTable {
 

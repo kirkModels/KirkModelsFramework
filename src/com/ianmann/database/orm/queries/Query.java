@@ -5,11 +5,10 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import com.ianmann.database.config.Settings;
 import com.ianmann.database.orm.Model;
 import com.ianmann.database.orm.QuerySet;
-import com.ianmann.database.orm.queries.scripts.WhereCondition;
-import com.ianmann.database.utils.exceptions.LanguageNotSupportedError;
+import com.ianmann.database.orm.config.Settings;
+import com.ianmann.database.orm.utils.exceptions.LanguageNotSupportedError;
 
 public abstract class Query {
 

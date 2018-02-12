@@ -7,10 +7,10 @@ import java.sql.SQLException;
 
 import org.json.simple.parser.ParseException;
 
-import com.ianmann.database.config.Settings;
-import com.ianmann.database.orm.backend.sync.DbSync;
-import com.ianmann.database.orm.backend.sync.MigrationGenerator;
-import com.ianmann.database.utils.exceptions.ObjectNotFoundException;
+import com.ianmann.database.orm.config.Settings;
+import com.ianmann.database.orm.schema.migrationTracking.DbSync;
+import com.ianmann.database.orm.schema.migrationTracking.MigrationGenerator;
+import com.ianmann.database.orm.utils.exceptions.ObjectNotFoundException;
 
 /**
  * Core class that contains methods often used in development for the project.
